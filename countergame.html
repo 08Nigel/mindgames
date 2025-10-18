@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="counter.js" defer></script>
+    <title>Counter Strike</title>
+</head>
+<body style="text-align: center; align-items: center;">
+    <div class="elements-container">
+        <button id="menu" style="float: left; margin-top: 10px; margin-left: 15px; border-radius: 5px; background: linear-gradient(45deg, #0ef, blue); width: 100px;">Menu</button>
+        <label for="points">Points:</label>
+        <p id="points" style="font-size: larger; font: arial; font-weight: 600;"></p>
+    <label for="" id="lbl1">Number you must catch:<p id="msg"></p></label>
+    <p id="timer" style="font-size: 80px;">0</p><br>
+    <button id="btn" style="width: 300px; height: 50px; background-color: #aca; border-radius: 10px;">Stop</button>
+    <button id="refresh" style="background-color: rgb(13, 149, 212); width: 300px; height: 30px; border-radius: 30px; margin-top: 20px;">Refresh</button><br>
+</div>
+<style>
+   /* Base styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.elements-container {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    background: linear-gradient(45deg, #0ef, blue);
+    border-radius: 30px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0); /* Removed unnecessary X axis transform */
+}
+
+/* Center text */
+p, label, #lbl1 {
+    text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .elements-container {
+        width: 80%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .elements-container {
+        width: 90%;
+        padding: 10px;
+    }
+}
+</style>
+</body>
+</html>

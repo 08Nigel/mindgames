@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+</head>
+<body>
+<div id="splash-screen">
+    <video id="splash-video" muted playsinline autoplay>
+      <source src="myicon.ico.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div id="main-content" style="display: none;">
+    <!-- Your main content here -->
+
+
+    <div class="group2-container">
+      <div>
+         <label id="lab1" for="colorPicker">Pick a Background Color</label>
+                <input type="color" id="colorPicker" value=" rgb(250, 0 , 171)"><br>
+      </div>
+        <div>
+            <button id="quizopen">&#127968</button>
+        </div>
+    <input type = 'number' id="guess-text" placeholder="Enter A Number" maxlength="1">
+    <p id="answer"></p>
+    <button id="guesstheanswer">Guess</button>
+    <h3>Please enter a number from 1 to 9</h3>
+    <p id="dumbmessage">Winnig In This Game Is Nearly Impossible Challenge Yourself</p>
+    </div>
+    </div>
+    <style>
+      /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.group2-container{
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 30px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0); /* Removed unnecessary X axis transform */
+    background-color: white;
+    box-shadow: 0 0 100px #acacac;
+}
+
+.answer-buttons:hover{
+  background-color: rgb(0, 255, 200);
+}
+
+/* General Body Styles */
+body {
+  text-align: center;
+  justify-content: center;
+  max-height: 100vh;
+  justify-items: center;
+  font-family: 'Arial', sans-serif;
+  background-color: rgb(255, 255, 255);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.menu{
+   list-style: none;
+   text-decoration: none;
+   font-size: 20px;
+   font-weight: bold;
+   font: black;
+
+}
+
+/* video splash screen*/
+#splash-screen{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1000;
+
+}
+#splash-video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+#guess-text{
+  margin-top: 100px;
+  height: auto;
+  width: 190px;
+  border-bottom: 2px solid #0f0;
+  outline: none;
+  margin: 30px 0;
+  border-left: #0f0;
+  border-right: #0f0;
+  border-top: #0f0;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 20px;
+  background-color: transparent;
+}
+h3{
+ font: arial;
+}
+#dumbmessage{
+  font-weight: bold;
+  font-size: 20px;
+}
+#guesstheanswer{
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 220px;
+  height: 40px;
+  background-color: #0ef;
+  font-weight: bolder;
+  font-size: medium;
+  border-radius: 50px;
+
+}
+#guesstheanswer:hover{
+  background-color: #0f0;
+  cursor: pointer;
+}
+#answer{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+#quizopen{
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  float: left;
+  height: 30px;
+  width: 90px;
+  font-weight: 200;
+}
+
+h1{
+  background-color: #0f0;
+  
+}
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 1000;
+}
+#splash-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#main-content {
+  text-align: center;
+  padding: 50px;
+}
+    </style>
+   <script>
+     // change background color picker
+ document.getElementById("colorPicker").addEventListener("input", function(){
+  document.body.style.backgroundColor = this.value;
+ })
+     // splash screen timeout
+  const splashScreen = document.getElementById('splash-screen')
+  const splashVideo = document.getElementById('splash-video')
+  const mainContent = document.getElementById('main-content')
+  splashVideo.addEventListener('ended', () => {
+    splashScreen.style.display = 'none'
+    mainContent.style.display = 'block'
+  })
+    //
+  const msg = document.getElementById("answer");
+const button = document.getElementById("guesstheanswer");
+const text = document.getElementById("guess-text");
+
+let randomNumbers;
+let gameStarted = false;
+
+button.addEventListener("click", getNumbers);
+
+function startGame() {
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    randomNumbers = numbers[Math.floor(Math.random() * numbers.length)];
+    gameStarted = true;
+    msg.textContent = "Guess a number!";
+    msg.style.color = "black";
+}
+function getNumbers() {
+    if (!gameStarted) {
+        startGame();
+    }
+    let num = parseInt(text.value);
+
+    if (num === randomNumbers) {
+        msg.style.color = "green";
+        msg.textContent = "Correct! You won!";
+        gameStarted = false;
+    } else {
+        msg.style.color = "red";
+        msg.textContent = `Try again!`;
+    }
+}
+ // number riddles game page
+  document.getElementById("quizopen").addEventListener("click", function() {
+    window.location.href = 'index.html'
+  })
+  // Exit button (quit)
+   // close buttoon
+    function closebutton(){
+       const closeme = document.getElementById('exitbtn')
+       window.close()
+    }
+    closeme.addEventListener("click", closebutton)
+    </script>
+</body>
+</html>

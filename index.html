@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+</head>
+<body style="width: 100vh; background-color: #333;">
+    <div class="elements-container">
+       <h1 style="font: arial; color: black; font-size: 2.3rem;">Mind Games, Remove the <span style="color: red; float: center;"> stress </span></h1>
+       <img src="myicon.ico.jpg" id="img1" style="width: 30%; border-radius: 20px; margin-bottom: 15px;">
+       <button id="riddlesBtn" class="btn1">Riddles</button>
+       <button id="counterstrike" class="btn1">Counter Strike</button>
+       <button id="NumberGuessingGame" class="btn1">Number Guessing Game</button>
+       <p style="font: arial;">Made By Nigel</p>
+</div>
+
+<style>
+    .elements-container {
+    width: 45%;
+    max-width: 800px;
+    height: auto;
+    background: linear-gradient(45deg, #0ef, blue);
+    border-radius: 30px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0); /* Removed unnecessary X axis transform */
+}
+.btn1{
+    background-color: #0ef;
+    width: 50%;
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 40px;
+}
+</style>
+
+<script>
+    const b = document.getElementById("riddlesBtn")
+    b.addEventListener("click", () => {
+        window.location.href = 'riddles.html'
+        console.log("Riddles Game")
+    })
+    const a = document.getElementById("counterstrike")
+    a.addEventListener("click", () => {
+        window.location.href = 'countergame.html'
+        console.log("Counter Strike")
+    })
+    const c = document.getElementById("NumberGuessingGame")
+    c.addEventListener("click", () => {
+        window.location.href = 'numberguessinggame.html'
+        console.log("Number Guessing Game")
+    })
+</script>
+</body>
+</html>

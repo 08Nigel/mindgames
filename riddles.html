@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>riddles online game</title>
+</head>
+<body>
+  <div id="splash-screen">
+    <video id="splash-video" muted playsinline autoplay>
+      <source src="myicon.ico.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div id="main-content" style="display: none;">
+    <!-- Your main content here -->
+
+    <div class='menubtn'>
+        <details class="det">
+            <summary>&#9776;</summary>
+            <ul>
+              <label id="lab1" for="colorPicker">Pick a Background Color</label>
+                <input type="color" id="colorPicker" value=" rgb(250, 0 , 171)"><br>
+                <button class="detbtn" id="helpme" >Help</button><br>
+                <button class="detbtn" id="numberguesinggame" >Menu</button><br>
+                <button class="detbtn" id="closeme">Quit</button><br>
+
+            </ul>
+        </details>
+    </div>
+    <div class="group">
+        <div class = "container">
+            <div class="wrappper">
+                <div class="form-wrapper"></div>
+                <h1 id="hd1">Riddles</h1>
+    <textarea id="question-text-box"></textarea><br>
+    <button class="answerbtn" id="A"></button><br>
+    <button class="answerbtn" id="B"></button><br>
+    <button class="answerbtn" id="C"></button><br>
+    <button class="answerbtn" id="D"></button><br>
+    <p id="scoreMsg">Your Score: 0</p>
+    </div>
+    <div class='myname'>
+      <p id='name'>Made with Love By Nigel</p>
+    </div>
+      </div>
+<script>
+  // audio functionality
+const btnclick1 = document.getElementById("A")
+const btnclick2 = document.getElementById("B")
+const btnclick3 = document.getElementById("C")
+const btnclick4= document.getElementById("D")
+let is_Playing = false
+function playSound(){
+  const sound = new Audio("button-click1-289742.mp3")
+  if (!sound.play){
+    sound.pause()
+  } else {
+    sound.play()
+  }
+  is_Playing = !is_Playing
+}
+
+btnclick1.addEventListener("click", playSound)
+btnclick2.addEventListener("click", playSound)
+btnclick3.addEventListener("click", playSound)
+btnclick4.addEventListener("click", playSound)
+
+ // change background color picker
+ document.getElementById("colorPicker").addEventListener("input", function(){
+  document.body.style.backgroundColor = this.value;
+ })
+  //help me
+document.getElementById('helpme').addEventListener('click', () => {
+  alert("Select the answers from the given choices, From choice A to D, if you click the wrong answer the button will light red, provided you select the right answer the button will light green, there's also a number guessing game there, Made with Love By Nigel")
+})
+
+  // splash screen timeout
+  const splashScreen = document.getElementById('splash-screen')
+  const splashVideo = document.getElementById('splash-video')
+  const mainContent = document.getElementById('main-content')
+  splashVideo.addEventListener('ended', () => {
+    splashScreen.style.display = 'none'
+    mainContent.style.display = 'block'
+  })
+    // close buttoon
+    function closebutton(){
+       const closeme = document.getElementById('closeme')
+       window.close()
+    }
+    closeme.addEventListener("click", closebutton)
+    // Questions and answers array
+const questions = [
+{
+question: "I have a head, a tail, but no body. What am I?",
+answers: ['Tree', 'Coin', 'House', 'Car'],
+correct: 'Coin'
+},
+{
+question: "If you throw a white stone in the red sea what would the stone become",
+answers: ['Wet', 'Red Stone', 'Blessed', 'Baptised'],
+correct: 'Wet'
+},
+{
+  question: 'Which part of the day would you break each day',
+  answers: ['Afternoon', 'Midnight', 'Breakfast', 'Super'],
+  correct: 'Breakfast'
+},
+{
+  question: 'What has a head, but cannot think, but can drive',
+  answers: ['Needle', 'Horse', 'Scarecrow', 'Hammer'],
+  correct: 'Hammer'
+},
+{
+  question: 'What can you catch but cannot throw it',
+  answers: ['Water', 'Snow', 'Feelings', 'Clouds'],
+  correct: 'Feelings'
+},
+{
+question: "What has keys but can't open locks?",
+answers: ['Door', 'Piano', 'Car', 'House'],
+correct: 'Piano'
+},
+{
+question: "What starts with an E, ends with an E, but only contains one letter?",
+answers: ['Email', 'Eagle', 'Earth', 'Envelope'],
+correct: 'Envelope'
+},
+{
+question: "What is black and white and read all over?",
+answers: ['Book', 'Newspaper', 'Magazine', 'Piano'],
+correct: 'Newspaper'
+},
+{
+question: "What is full of holes but still holds water?",
+answers: ['Tank', 'Bucket', 'Bowl', 'Sponge'],
+correct: 'Sponge'
+},
+{
+question: "What has a face and two hands but no arms or legs?",
+answers: ['Calendar', 'Map', 'Watch', 'Clock'],
+correct: 'Clock'
+},
+{
+question: "What can you catch, but not throw?",
+answers: ['Frisbee', 'Ball', 'Cold', 'Stone'],
+correct: 'Cold'
+},
+{
+question: "What is always coming but never arrives?",
+answers: ['Yesterday', 'Today', 'Future', 'Tomorrow'],
+correct: 'Tomorrow'
+},
+{
+question: "What is greater than God, more evil than the devil, the poor have it, the rich need it, and if you eat it you will die?",
+answers: ['Power', 'Money', 'Nothing', 'Fame'],
+correct: 'Nothing'
+},
+{
+question: "What can be broken, but never held?",
+answers: ['Vase', 'Glass', 'Promise', 'Heart'],
+correct: 'Promise'
+},
+ {
+question: "What has a thumb but no fingers?",
+answers: ['Hand', 'Finger', 'Nail', 'Glove'],
+correct: 'Glove'
+},
+ {
+question: "What goes up but never comes down?",
+answers: ['Temperature', 'Pressure', 'Height', 'Age'],
+correct: 'Age'
+ },
+ {
+question: "What is always moving, yet never moves?",
+answers: ['Wind', 'Sun', 'River', 'Shadow'],
+correct: 'Shadow'
+},
+
+{
+question: "What has to be broken before you can use it?",
+answers: ['Seal', 'Box', 'Egg', 'Glass'],
+correct: 'Egg'
+},
+{
+question: "What has a mouth, but can't eat?",
+answers: ['Well', 'Spring', 'Ocean', 'River'],
+correct: 'River'
+},
+{
+question: "What goes around the world but stays in a corner?",
+answers: ['Map', 'Globe', 'Compass', 'Stamp'],
+correct: 'Stamp'
+},
+{
+question: "What is always there, yet invisible?",
+answers: ['Water', 'Fire', 'Earth', 'Air'],
+correct: 'Air'
+},
+{
+question: "What can be put in a bucket to make it weigh less?",
+answers: ['Water', 'Sand', 'Rocks', 'Hole'],
+correct: 'Hole'
+},
+{
+question: "What is light as a feather, yet even the strongest man can't hold it for much more than a minute?",
+answers: ['Paper', 'Cotton', 'Feather', 'Breath'],
+correct: 'Breath'
+},
+{
+question: "What is always the same, no matter how you spin it?",
+answers: ['Dice', 'Coin', 'Ball', 'Top'],
+correct: 'Top'
+},
+
+
+{
+question: "What has six faces but does not wear makeup?",
+answers: ['Map', 'Book', 'Dice', 'Clock'],
+correct: 'Dice'
+},
+
+{
+question: "What can go up and down without moving?",
+answers: ['Ladder', 'Elevator', 'Temperature', 'Stairs'],
+correct: 'Stairs'
+
+},
+{
+question: "What has a foot on each side but no legs?",
+answers: ['Ruler', 'Map', 'Pencil', 'Compass'],
+correct: 'Compass'
+},
+{
+question: "What can be measured, but not seen?",
+answers: ['Length', 'Weight', 'Temperature', 'Time'],
+correct: 'Time'
+},
+{
+question: "What goes up in the air and comes down in a different place?",
+answers: ['Balloon', 'Bird', 'Plane', 'Parachute'],
+correct: 'Parachute'
+},
+{
+question: "What has a bed but doesn't sleep?",
+answers: ['River', 'Garden', 'Park', 'House'],
+correct: 'River'
+},
+{
+question: "I am always coming but never arrive. What am I?",
+answers: ['Future', 'Yesterday', 'Today', 'Destination'],
+correct: 'Future'
+},
+{
+question: "What can be broken, but never held?",
+answers: ['Trust', 'Heart', 'Vow', 'Promise'],
+correct: 'Promise'
+
+},
+{
+question: "What is always moving, yet never moves?",
+answers: ['River', 'Wind', 'Shadow', 'Time'],
+correct: 'Shadow'
+
+},
+{
+question: "I have a head, a tail, but no body. What am I?",
+answers: ['Coin', 'Fish', 'Snake', 'Arrow'],
+correct: 'Coin'
+},
+{
+
+question: "What has to be broken before you can use it?",
+answers: ['Egg', 'Seal', 'Box', 'Key'],
+correct: 'Egg'
+},
+{
+
+question: "What has keys but can't open locks?",
+answers: ['Piano', 'Door', 'Safe', 'Keyboard'],
+correct: 'Piano'
+},
+{
+question: "What starts with an E, ends with an E, but only contains one letter?",
+answers: ['Envelope', 'Email', 'Eagle', 'Earth'],
+correct: 'Envelope'
+},
+{
+question: "What is greater than God, more evil than the devil, the poor have it, the rich need it, and if you eat it you will die?",
+answers: ['Nothing', 'Money', 'Power', 'Fame'],
+correct: 'Nothing'
+},
+{
+question: "What goes up but never comes down?",
+answers: ['Age', 'Temperature', 'Height', 'Time'],
+correct: 'Age'
+
+},
+{
+question: "What has a face and two hands but no arms or legs?",
+answers: ['Clock', 'Watch', 'Calendar', 'Map'],
+correct: 'Clock'
+
+},
+{
+question: "What can you catch, but not throw?",
+answers: ['Cold', 'Ball', 'Frisbee', 'Stone'],
+correct: 'Cold'
+
+},
+{
+question: "What is black and white and read all over?",
+answers: ['Newspaper', 'Book', 'Magazine', 'Piano'],
+correct: 'Newspaper'
+},
+{
+question: "What is full of holes but still holds water?",
+answers: ['Sponge', 'Bucket', 'Bowl', 'Tank'],
+correct: 'Sponge'
+
+},
+{
+question: "What has a thumb but no fingers?",
+answers: ['Glove', 'Hand', 'Finger', 'Nail'],
+correct: 'Glove'
+},
+{
+question: "What goes around the world but stays in a corner?",
+answers: ['Stamp', 'Map', 'Globe', 'Compass'],
+correct: 'Stamp'
+},
+ {
+question: "What is always there, yet invisible?",
+answers: ['Air', 'Water', 'Fire', 'Earth'],
+correct: 'Air'
+ },
+ {
+ 
+question: "What can be put in a bucket to make it weigh less?",
+answers: ['Hole', 'Water', 'Sand', 'Rocks'],
+correct: 'Hole'
+ },
+{
+question: "What is light as a feather, yet even the strongest man can't hold it for much more than a minute?",
+answers: ['Breath', 'Paper', 'Cotton', 'Feather'],
+correct: 'Breath'
+},
+{
+question: "What is always the same, no matter how you spin it?",
+answers: ['Top', 'Dice', 'Coin', 'Ball'],
+correct: 'Top'
+},
+{
+question: "What has six faces but does not wear makeup?",
+answers: ['Dice', 'Map', 'Book', 'Clock'],
+correct: 'Dice'
+},
+ {
+question: "What can go up and down without moving?",
+answers: ['Stairs', 'Ladder', 'Elevator', 'Temperature'],
+correct: 'Stairs'
+ },
+{
+question: "What has a foot on each side but no legs?",
+answers: ['Compass', 'Ruler', 'Map', 'Pencil'],
+correct: 'Compass'
+},
+{
+question: "What can be measured, but not seen?",
+answers: ['Time', 'Length', 'Weight', 'Temperature'],
+correct: 'Time'
+},
+
+  {
+    question: "The more you take from me, the bigger I get. What am I?",
+    answers: ['Hole', 'Shadow', 'Cave', 'Crater'],
+    correct: 'Hole'
+  },
+  {
+    question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
+    answers: ['Shadow', 'Echo', 'Whistle', 'Voice'],
+    correct: 'Echo'
+  },
+  {
+    question: "The person who makes it, sells it. The person who buys it never uses it. What is it?",
+    answers: ['Coffin', 'Medicine', 'Mask', 'Lantern'],
+    correct: 'Coffin'
+  },
+  {
+    question: "The more of me you take, the more you leave behind. What am I?",
+    answers: ['Steps', 'Memories', 'Footprints', 'Time'],
+    correct: 'Footprints'
+  },
+  {
+    question: "I am always hungry, I must always be fed. The finger I touch will soon turn red. What am I?",
+    answers: ['Acid', 'Rust', 'Fire', 'Lava'],
+    correct: 'Fire'
+  },
+  {
+    question: "What has cities, but no houses; forests, but no trees; and water, but no fish?",
+    answers: ['Atlas', 'Map', 'Globe', 'Puzzle'],
+    correct: 'Map'
+  },
+  {
+    question: "The more you share me, the less I become. What am I?",
+    answers: ['Money', 'Secret', 'Happiness', 'Food'],
+    correct: 'Secret'
+  },
+  {
+    question: "I have branches, but no fruit, trunk or leaves. What am I?",
+    answers: ['Library', 'Government', 'Bank', 'River'],
+    correct: 'Bank'
+  },
+  {
+    question: "I fly without wings, I cry without eyes. Whenever I go, darkness flies. What am I?",
+    answers: ['Storm', 'Rain', 'Wind', 'Cloud'],
+    correct: 'Wind'
+  },
+  {
+    question: "I shrink the more I work, yet I never sleep. What am I?",
+    answers: ['Battery', 'Candle', 'Soap', 'Shadow'],
+    correct: 'Candle'
+  },
+  {
+    question: "What gets wetter the more it dries?",
+    answers: ['Water', 'Sponge', 'Towel', 'Cloth'],
+    correct: 'Towel'
+  },
+  {
+    question: "I’m light as a feather, yet the strongest person can’t hold me for long. What am I?",
+    answers: ['Breath', 'Cloud', 'Hope', 'Air'],
+    correct: 'Breath'
+  },
+  {
+    question: "What has one eye but can’t see?",
+    answers: ['Needle', 'Hurricane', 'Camera', 'Cyclops'],
+    correct: 'Needle'
+  },
+  {
+    question: "What begins with T, finishes with T, and has T in it?",
+    answers: ['Teapot', 'Tablet', 'Tent', 'Ticket'],
+    correct: 'Teapot'
+  },
+  {
+    question: "What invention lets you look right through a wall?",
+    answers: ['Door', 'Mirror', 'Window', 'Glass'],
+    correct: 'Window'
+  },
+  {
+    question: "I have no life, but I can die. What am I?",
+    answers: ['Fire', 'Battery', 'Computer', 'Shadow'],
+    correct: 'Battery'
+  },
+  {
+    question: "The more you take me out, the bigger I get. What am I?",
+    answers: ['Hole', 'Void', 'Space', 'Gap'],
+    correct: 'Hole'
+  },
+  {
+    question: "What has many teeth but cannot bite?",
+    answers: ['Comb', 'Zipper', 'Saw', 'Gear'],
+    correct: 'Comb'
+  },
+  {
+    question: "What has one head, one foot, and four legs?",
+    answers: ['Table', 'Bed', 'Chair', 'Stool'],
+    correct: 'Bed'
+  },
+  {
+    question: "Forward I am heavy, but backward I am not. What am I?",
+    answers: ['Weight', 'Ton', 'Rock', 'Stone'],
+    correct: 'Ton'
+  },
+
+  { 
+    question: "I’m taken from a mine and locked in a wooden case, never released, and yet almost everyone uses me. What am I?",
+    answers: ['Pencil lead', 'Coal', 'Diamond', 'Iron'],
+    correct: 'Pencil lead'
+  },
+  { 
+    question: "What runs around a yard without moving?",
+    answers: ['Fence', 'Dog', 'Sprinkler', 'Shadow'],
+    correct: 'Fence'
+  },
+  { 
+    question: "What has many rings but no fingers?",
+    answers: ['Tree', 'Bell', 'Chain', 'Phone'],
+    correct: 'Tree'
+  },
+  { 
+    question: "What has a heart that doesn’t beat?",
+    answers: ['Artichoke', 'Statue', 'Clock', 'Stone'],
+    correct: 'Artichoke'
+  },
+  { 
+    question: "I have eyes that cannot see, a tongue that cannot taste, and a sole that never dies. What am I?",
+    answers: ['Shoe', 'Mask', 'Doll', 'Fish'],
+    correct: 'Shoe'
+  },
+  { 
+    question: "What has a neck but no head?",
+    answers: ['Bottle', 'Guitar', 'Road', 'River'],
+    correct: 'Bottle'
+  },
+  { 
+    question: "What can fill a room but takes up no space?",
+    answers: ['Light', 'Air', 'Music', 'Heat'],
+    correct: 'Light'
+  },
+  { 
+    question: "What can bring back the dead, make you cry, make you laugh, make you young again?",
+    answers: ['Memory', 'Dream', 'Music', 'Time'],
+    correct: 'Memory'
+  },
+  { 
+    question: "I turn once, what is out will not get in; I turn again, what is in will not get out. What am I?",
+    answers: ['Key', 'Lock', 'Door', 'Valve'],
+    correct: 'Key'
+  },
+  { 
+    question: "I shave every day, but my beard stays the same. Who am I?",
+    answers: ['Barber', 'Actor', 'Statue', 'Magician'],
+    correct: 'Barber'
+  },
+  { 
+    question: "What can you hold in your right hand but never in your left?",
+    answers: ['Your left hand', 'A ball', 'A mirror', 'Your breath'],
+    correct: 'Your left hand'
+  },
+  { 
+    question: "What is so fragile that speaking its name breaks it?",
+    answers: ['Silence', 'Glass', 'Promise', 'Calm'],
+    correct: 'Silence'
+  },
+  { 
+    question: "I am not alive, but I can grow; I need air, but water kills me. What am I?",
+    answers: ['Fire', 'Rust', 'Mold', 'Shadow'],
+    correct: 'Fire'
+  },
+  { 
+    question: "What kind of coat is best put on wet?",
+    answers: ['Paint', 'Raincoat', 'Varnish', 'Fur'],
+    correct: 'Paint'
+  },
+  { 
+    question: "What has a spine but no bones?",
+    answers: ['Book', 'Cactus', 'Clock', 'Feather'],
+    correct: 'Book'
+  },
+  { 
+    question: "Which building has the most stories?",
+    answers: ['Library', 'Skyscraper', 'Museum', 'Castle'],
+    correct: 'Library'
+  },
+  { 
+    question: "What can you keep after giving it to someone?",
+    answers: ['Your word', 'A secret', 'A book', 'A ring'],
+    correct: 'Your word'
+  },
+  { 
+    question: "What belongs to you but other people use it more than you do?",
+    answers: ['Your name', 'Your time', 'Your chair', 'Your phone'],
+    correct: 'Your name'
+  },
+  { 
+    question: "What can run but never walks, has a mouth but never talks, has a head but never weeps, has a bed but never sleeps?",
+    answers: ['River', 'Wind', 'Clock', 'Road'],
+    correct: 'River'
+  },
+  { 
+    question: "What has thirteen hearts but no lungs or stomach?",
+    answers: ['A deck of cards', 'Octopus', 'Clock', 'Twelve apostles'],
+    correct: 'A deck of cards'
+  },
+
+
+  {
+    question: "The more you take from me, the bigger I get. What am I?",
+    answers: ['Hole', 'Shadow', 'Cave', 'Crater'],
+    correct: 'Hole'
+  },
+  {
+    question: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
+    answers: ['Shadow', 'Echo', 'Whistle', 'Voice'],
+    correct: 'Echo'
+  },
+  {
+    question: "The person who makes it, sells it. The person who buys it never uses it. What is it?",
+    answers: ['Coffin', 'Medicine', 'Mask', 'Lantern'],
+    correct: 'Coffin'
+  },
+  {
+    question: "The more of me you take, the more you leave behind. What am I?",
+    answers: ['Steps', 'Memories', 'Footprints', 'Time'],
+    correct: 'Footprints'
+  },
+  {
+    question: "I am always hungry, I must always be fed. The finger I touch will soon turn red. What am I?",
+    answers: ['Acid', 'Rust', 'Fire', 'Lava'],
+    correct: 'Fire'
+  },
+  {
+    question: "What has cities, but no houses; forests, but no trees; and water, but no fish?",
+    answers: ['Atlas', 'Map', 'Globe', 'Puzzle'],
+    correct: 'Map'
+  },
+  {
+    question: "The more you share me, the less I become. What am I?",
+    answers: ['Money', 'Secret', 'Happiness', 'Food'],
+    correct: 'Secret'
+  },
+  {
+    question: "I have branches, but no fruit, trunk or leaves. What am I?",
+    answers: ['Library', 'Government', 'Bank', 'River'],
+    correct: 'Bank'
+  },
+  {
+    question: "I fly without wings, I cry without eyes. Whenever I go, darkness flies. What am I?",
+    answers: ['Storm', 'Rain', 'Wind', 'Cloud'],
+    correct: 'Wind'
+  },
+  {
+    question: "I shrink the more I work, yet I never sleep. What am I?",
+    answers: ['Battery', 'Candle', 'Soap', 'Shadow'],
+    correct: 'Candle'
+  },
+  {
+    question: "What gets wetter the more it dries?",
+    answers: ['Water', 'Sponge', 'Towel', 'Cloth'],
+    correct: 'Towel'
+  },
+  {
+    question: "I’m light as a feather, yet the strongest person can’t hold me for long. What am I?",
+    answers: ['Breath', 'Cloud', 'Hope', 'Air'],
+    correct: 'Breath'
+  },
+  {
+    question: "What has one eye but can’t see?",
+    answers: ['Needle', 'Hurricane', 'Camera', 'Cyclops'],
+    correct: 'Needle'
+  },
+  {
+    question: "What begins with T, finishes with T, and has T in it?",
+    answers: ['Teapot', 'Tablet', 'Tent', 'Ticket'],
+    correct: 'Teapot'
+  },
+  {
+    question: "What invention lets you look right through a wall?",
+    answers: ['Door', 'Mirror', 'Window', 'Glass'],
+    correct: 'Window'
+  },
+  {
+    question: "I have no life, but I can die. What am I?",
+    answers: ['Fire', 'Battery', 'Computer', 'Shadow'],
+    correct: 'Battery'
+  },
+  {
+    question: "The more you take me out, the bigger I get. What am I?",
+    answers: ['Hole', 'Void', 'Space', 'Gap'],
+    correct: 'Hole'
+  },
+  {
+    question: "What has many teeth but cannot bite?",
+    answers: ['Comb', 'Zipper', 'Saw', 'Gear'],
+    correct: 'Comb'
+  },
+  {
+    question: "What has one head, one foot, and four legs?",
+    answers: ['Table', 'Bed', 'Chair', 'Stool'],
+    correct: 'Bed'
+  },
+  {
+    question: "Forward I am heavy, but backward I am not. What am I?",
+    answers: ['Weight', 'Ton', 'Rock', 'Stone'],
+    correct: 'Ton'
+  }
+
+
+
+  // Add more questions...
+];
+
+// Function to shuffle an array
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+// Shuffle the questions array
+shuffleArray(questions);
+
+let currentQuestionIndex = 0;
+
+// Update the question text box and answer buttons with the current question
+function displayQuestion() {
+  const questionTextBox = document.getElementById("question-text-box");
+  questionTextBox.value = questions[currentQuestionIndex].question;
+  const answers = questions[currentQuestionIndex].answers;
+  document.getElementById("A").textContent = `A) ${answers[0]}`;
+  document.getElementById("B").textContent = `B) ${answers[1]}`;
+  document.getElementById("C").textContent = `C) ${answers[2]}`;
+  document.getElementById("D").textContent = `D) ${answers[3]}`;
+}
+
+// Handle answer button click
+function handleAnswerButtonClick(answer) {
+  const correctAnswer = questions[currentQuestionIndex].correct;
+  const answers = questions[currentQuestionIndex].answers;
+  const answerButton = document.getElementById(answer);
+  const selectedAnswer = answers[answer.charCodeAt(0) - 65];
+  if (selectedAnswer === correctAnswer) {
+    answerButton.style.backgroundColor = "#23ff00";
+    score++
+    document.getElementById("scoreMsg").textContent = `Score: ${score} out of ${questions.length}`
+    // Move to the next question after a short delay
+    setTimeout(() => {
+      answerButton.style.backgroundColor = "";
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        // Game over or display final score
+      }
+    }, 1000);
+  } else {
+    answerButton.style.backgroundColor = "red";
+    // Show the correct answer
+    const correctAnswerIndex = answers.indexOf(correctAnswer);
+    const correctAnswerButton = document.getElementById(String.fromCharCode(65 + correctAnswerIndex));
+    correctAnswerButton.style.backgroundColor = "green";
+    // Move to the next question after a short delay
+    setTimeout(() => {
+      answerButton.style.backgroundColor = "";
+      correctAnswerButton.style.backgroundColor = "";
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        showFinalscore()
+        // Game over or display final score
+      }
+    }, 1000);
+  }
+}
+
+// Initialize the game
+displayQuestion();
+// variable to hold score
+let score = 0
+
+// Add event listeners to the answer buttons
+document.getElementById("A").addEventListener("click", () => handleAnswerButtonClick("A"));
+document.getElementById("B").addEventListener("click", () => handleAnswerButtonClick("B"));
+document.getElementById("C").addEventListener("click", () => handleAnswerButtonClick("C"));
+document.getElementById("D").addEventListener("click", () => handleAnswerButtonClick("D"));
+
+// the number guessing game
+ // number riddles game page
+  document.getElementById("numberguesinggame").addEventListener("click", function() {
+    window.location.href = 'index.html'
+  })
+  function fitTextToBox(textBox) {
+  const text = textBox.innerText;
+  const containerWidth = textBox.offsetWidth;
+  const containerHeight = textBox.offsetHeight;
+
+  // Adjust font size based on text length and container size
+  let fontSize = 20; // Initial font size
+  textBox.style.fontSize = fontSize + 'px';
+
+  while (textBox.scrollHeight > containerHeight || textBox.scrollWidth > containerWidth) {
+    fontSize -= 1;
+    textBox.style.fontSize = fontSize + 'px';
+    if (fontSize < 8) break; // Minimum font size
+  }
+}
+
+// Apply
+</script>
+</body>
+</html>
